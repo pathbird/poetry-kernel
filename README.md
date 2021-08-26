@@ -13,7 +13,7 @@ The reason we created this package was to make sure that the code environments
 created for running student code on Pathbird exactly match your development
 environment. Interested in developing interactive, engaging, inquiry-based
 lessons for your students?
-[Check out our website for more information!](https://pathbird.com/)
+[Check out Pathbird for more information!](https://pathbird.com/)
 
 # Usage
 
