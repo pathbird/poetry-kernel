@@ -20,6 +20,4 @@ colorama = "^0.4.4"
 # Ironically, we can't use Poetry as the build system since it doesn't have
 # support for running arbitrary install scripts
 build-backend = "setuptools.build_meta"
-requires=[
-  "jupyter_client",
-]
+requires=[]

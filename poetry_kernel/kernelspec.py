@@ -2,9 +2,6 @@ import json
 import os.path
 import tempfile
 
-from jupyter_client.kernelspec import KernelSpecManager
-
-
 def _write_kernelspec(dir):
     spec = {
         "argv": [
@@ -19,6 +16,11 @@ def _write_kernelspec(dir):
 
 
 def install():
+    # Make this import inside the install function because this file is used
+    # during package install and we don't necessarily have jupyter_client
+    # installed yet
+    from jupyter_client.kernelspec import KernelSpecManager
+
     manager = KernelSpecManager()
     with tempfile.TemporaryDirectory() as tmpdir:
         _write_kernelspec(tmpdir)
