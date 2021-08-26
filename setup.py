@@ -48,6 +48,7 @@ setup(
     license="MIT",
     description="Python Jupyter kernel using Poetry for dependency management",
     long_description=README,
+    long_description_content_type="text/markdown",
     keywords=["Interactive", "Interpreter", "Shell", "Web"],
     classifiers=[
         "Framework :: Jupyter",
