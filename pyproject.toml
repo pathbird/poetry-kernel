@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "poetry-kernel"
+version = "0.1.0"
+description = ""
+authors = ["Travis DePrato <travis@pathbird.com>"]
+
+[scripts]
+poetry-kernel = 'poetry_kernel.main:main'
+
+[tool.poetry.dependencies]
+python = "^3.7"
+jupyter-client = "^7.0.1"
+colorama = "^0.4.4"
+
+[tool.poetry.dev-dependencies]
+# TODO: tests :^)
+# pytest = "^5.2"
+
+[build-system]
+# Ironically, we can't use Poetry as the build system since it doesn't have
+# support for running arbitrary install scripts
+build-backend = "setuptools.build_meta"
+requires=[
+  "jupyter_client",
+]
