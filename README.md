@@ -26,7 +26,10 @@ lessons for your students?
    pip3 install poetry-kernel
    ```
 1. Initialize a Poetry project (only required if you do not have an existing
-   Poetry project ready to use)
+   Poetry project ready to use):
+   ```sh
+   poetry init -n
+   ```
 1. **IMPORTANT:** Add `ipykernel` to your project's dependencies:
    ```sh
    # In the directory of your Poetry project
@@ -80,8 +83,10 @@ The IPython kernel runs as part of the same process as all your other Python
 code. This means we can't install our own version of it outside of your Poetry
 project.
 
-Trying to install it automatically runs the risk of accidentally breaking one of
-your dependencies.
+Trying to install it automatically runs the risk of accidentally breaking
+something in your project by accidentally upgrading a dependency (or transitive
+dependency). That would go against the whole point of trying to recreate the
+exact set of packages that were being used to create the notebook!
 
 ## Why won't Poetry Kernel automatically run `poetry install`?
 
