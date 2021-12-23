@@ -1,3 +1,4 @@
+from pathlib import Path
 import os.path
 import signal
 import subprocess
@@ -5,11 +6,16 @@ import sys
 
 import colorama
 
-
 def main():
+    candidates = [Path().resolve()]
+    candidates.extend(Path().resolve().parents)
     colorama.init()
 
-    if not os.path.exists("pyproject.toml"):
+    for dirs in candidates:
+        poetry_file = dirs / "pyproject.toml"
+        if poetry_file.exists():
+            break
+    else:
         print(
             colorama.Fore.RED + colorama.Style.BRIGHT +
             "\n" +
@@ -22,7 +28,7 @@ def main():
             sep="\n",
         )
         raise RuntimeError("Cannot start Poetry kernel: expected pyproject.toml")
-
+ 
     cmd = [
         "poetry", "run",
         "python", "-m", "ipykernel_launcher",
