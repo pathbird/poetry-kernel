@@ -39,7 +39,7 @@ with open(os.path.join(current_dir, "README.md")) as fp:
 
 setup(
     name="poetry-kernel",
-    version="0.1.0",
+    version="0.1.1",
 
     # Package metadata
     author="Pathbird Inc",
