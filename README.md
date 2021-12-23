@@ -4,8 +4,33 @@ Use per-directory Poetry environments to run Jupyter kernels. No need to install
 a Jupyter kernel per Python virtual environment!
 
 The idea behind this project is to allow you to capture the exact state of your
-environment. This means you can email your work to your peers and they'll have
+environment. This means you can email your work to your peers, and they'll have
 _exactly_ the same set of packages that you do! Reproducibility!
+
+## Why not virtual environments (venvs)?
+
+Virtual environments were (and are) an important advancement to Python's package
+management story, but they have a few shortcomings:
+
+- They are not great for reproducibility. Usually, you'll create a new virtual
+  environment using a `requirements.txt` which includes all the direct
+  dependencies (numpy, pandas, etc.), but not transient dependencies (pandas
+  depends on pytz for timezone support, for example). And usually, even the
+  direct dependencies are specified only as minimum (or semver) ranges (e.g.,
+  `numpy>=1.21`) which can make it hard or impossible to accurately recreate the
+  `venv` later.
+- With Jupyter, they usually require that the kernels be installed globally.
+  This means you'll need need to have a separate kernelspec for every venv you
+  want to use with Jupyter.
+
+Poetry uses venvs transparently under the hood by constructing them from the
+`pyproject.toml` and `poetry.lock` files. The `poetry.lock` file records the
+exact state of dependencies (and transient dependencies) and can be used to more
+accurately reproduce the environment.
+
+Additionally, Poetry Kernel means you only have to install one kernelspec. It
+then uses the `pyproject.toml` file from the directory of the notebook (or any
+parent directory) to choose which environment to run the notebook in.
 
 ## Shameless plug
 
@@ -23,7 +48,7 @@ lessons for your students?
    ```sh
    # NOTE: Do **NOT** install this package in your Poetry project, it should be
    # installed at the system or user level.
-   pip3 install poetry-kernel
+   pip3 install --user poetry-kernel
    ```
 1. Initialize a Poetry project (only required if you do not have an existing
    Poetry project ready to use):
@@ -77,24 +102,4 @@ restart the kernel for it to see the new package.
 
 # FAQ
 
-## Why do I have to install `ipykernel` manually?
-
-The IPython kernel runs as part of the same process as all your other Python
-code. This means we can't install our own version of it outside of your Poetry
-project.
-
-Trying to install it automatically runs the risk of accidentally breaking
-something in your project by accidentally upgrading a dependency (or transitive
-dependency). That would go against the whole point of trying to recreate the
-exact set of packages that were being used to create the notebook!
-
-## Why won't Poetry Kernel automatically run `poetry install`?
-
-Doing so has the possibility to run arbitrary Python code on your computer
-(since most packages are allowed to run arbitrary Python code during their
-install). It should generally be safe to open a notebook file even if it's
-untrusted, so we don't take the risk.
-
-## Some other question!
-
-Feel free to open an issue to discuss.
+[See FAQ.md.](FAQ.md)
