@@ -1,8 +1,8 @@
-from pathlib import Path
-import os.path
+import platform
 import signal
 import subprocess
 import sys
+from pathlib import Path
 
 import colorama
 
@@ -36,7 +36,10 @@ def main():
     ]
     proc = subprocess.Popen(cmd)
 
-    forward_signals = set(signal.Signals) - {signal.SIGKILL, signal.SIGSTOP}
+    if platform.system() == 'Windows':
+        forward_signals = set(signal.Signals) - {signal.CTRL_BREAK_EVENT, signal.CTRL_C_EVENT, signal.SIGTERM}
+    else:
+        forward_signals = set(signal.Signals) - {signal.SIGKILL, signal.SIGSTOP}
 
     def handle_signal(sig, _frame):
         proc.send_signal(sig)
